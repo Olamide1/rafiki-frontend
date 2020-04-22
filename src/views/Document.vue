@@ -84,6 +84,8 @@
 
 <script>
 import axios from 'axios'
+import io from "socket.io-client";
+var socket = io.connect("http://localhost:3000",  { withCredentials: false });
 export default {
   name: 'Home',
   data() {
@@ -94,7 +96,8 @@ export default {
       docIntro: sessionStorage.getItem('docIntro'),
       firstname: sessionStorage.getItem('firstname'),
       showme: false,
-      share_id: sessionStorage.getItem('shareId')
+      share_id: sessionStorage.getItem('shareId'),
+      shared: false
     }
   },
   methods: {
@@ -102,8 +105,7 @@ export default {
           this.$router.push('/dashboard')
         },
         share(){
-            var socket_namespace = this.share_id;
-            console.log(socket_namespace)
+            alert('http://localhost:3000/docs')
         },
         showModal (){
       this.showme = true
@@ -134,7 +136,11 @@ export default {
          editContent(evt){
              var src = evt.target.innerHTML
              this.docContent = src
+             socket.on('text', src => {
+               this.docContent = src
+             })     
          },
+         
          saveContent(){
              this.$el.querySelector('.content').blur()
              this.$el.querySelector('.header').blur()
