@@ -84,7 +84,6 @@
 
 <script>
 import axios from 'axios'
-var socket = io.connect("http://localhost:3000",  { withCredentials: false });
 export default {
   name: 'Home',
   data() {
