@@ -84,7 +84,6 @@
 
 <script>
 import axios from 'axios'
-import io from "socket.io-client";
 var socket = io.connect("http://localhost:3000",  { withCredentials: false });
 export default {
   name: 'Home',
@@ -135,10 +134,7 @@ export default {
          },
          editContent(evt){
              var src = evt.target.innerHTML
-             this.docContent = src
-             socket.on('text', src => {
-               this.docContent = src
-             })     
+             this.docContent = src   
          },
          
          saveContent(){
